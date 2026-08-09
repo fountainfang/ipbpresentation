@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINCAPES FFEWS - Presentation for IPB Forestry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-card: rgba(18, 26, 43, 0.75);
+      --bg-card-border: rgba(255, 255, 255, 0.08);
+      --accent-green: #10b981;
+      --accent-cyan: #06b6d4;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-blue: #3b82f6;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    /* Ambient Background Glow Orbs */
+    .bg-glow-1 {
+      position: absolute;
+      top: -10%;
+      left: 15%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow 12s infinite ease-in-out alternate;
+    }
+
+    .bg-glow-2 {
+      position: absolute;
+      bottom: -15%;
+      right: 10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: floatGlow 15s infinite ease-in-out alternate-reverse;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(40px, 30px) scale(1.1); }
+      100% { transform: translate(-30px, 50px) scale(0.95); }
+    }
+
+    /* Top Progress Bar with Shimmer Animation */
+    #progress-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green), var(--accent-blue), var(--accent-cyan));
+      background-size: 300% 100%;
+      width: 10%;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 100;
+      animation: shimmerBar 4s infinite linear;
+    }
+
+    @keyframes shimmerBar {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    /* Header Nav */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #000;
+      font-size: 1.05rem;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .brand:hover .brand-logo {
+      transform: rotate(5deg) scale(1.05);
+    }
+
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(90deg, #fff, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge-ipb {
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--accent-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    .badge-ipb::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background-color: var(--accent-green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--accent-green);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.5; }
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--bg-card-border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-width: 90px;
+      text-align: center;
+    }
+
+    /* Main Stage */
+    main {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 2.5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.96) translateY(20px);
+      transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.45s;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Staggered Child Animations when Slide Active */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .slide.active .slide-header {
+      animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+    }
+
+    .slide.active .card,
+    .slide.active .flow-container,
+    .slide.active .hero-title,
+    .slide.active .hero-subtitle,
+    .slide.active .meta-grid {
+      animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    .slide.active .grid-2 > .card:nth-child(1),
+    .slide.active .grid-3 > .card:nth-child(1),
+    .slide.active .grid-4 > .card:nth-child(1),
+    .slide.active .flow-step:nth-child(1) {
+      animation-delay: 0.12s;
+    }
+
+    .slide.active .grid-2 > .card:nth-child(2),
+    .slide.active .grid-3 > .card:nth-child(2),
+    .slide.active .grid-4 > .card:nth-child(2),
+    .slide.active .flow-step:nth-child(3) {
+      animation-delay: 0.22s;
+    }
+
+    .slide.active .grid-3 > .card:nth-child(3),
+    .slide.active .grid-4 > .card:nth-child(3),
+    .slide.active .flow-step:nth-child(5) {
+      animation-delay: 0.32s;
+    }
+
+    .slide.active .grid-4 > .card:nth-child(4),
+    .slide.active .flow-step:nth-child(7) {
+      animation-delay: 0.42s;
+    }
+
+    .slide.active .card:last-child {
+      animation-delay: 0.3s;
+    }
+
+    /* Slide Header */
+    .slide-header {
+      margin-bottom: 2rem;
+    }
+
+    .slide-category {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-cyan);
+      margin-bottom: 0.4rem;
+    }
+
+    .slide-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      background: linear-gradient(135deg, #ffffff 0%, #d1d5db 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      max-width: 850px;
+      line-height: 1.5;
+    }
+
+    /* Grid Layouts */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      flex: 1;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      flex: 1;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      flex: 1;
+    }
+
+    /* Glass Cards with Micro-Interactions */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+                  border-color 0.3s ease, 
+                  box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: rgba(6, 182, 212, 0.35);
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.45), 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.15) rotate(6deg);
+    }
+
+    .icon-green { background: rgba(16, 185, 129, 0.15); color: var(--accent-green); }
+    .icon-cyan { background: rgba(6, 182, 212, 0.15); color: var(--accent-cyan); }
+    .icon-amber { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); }
+    .icon-red { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); }
+    .icon-blue { background: rgba(59, 130, 246, 0.15); color: var(--accent-blue); }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .card-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .card-list {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-list li {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      transition: transform 0.2s ease;
+    }
+
+    .card-list li:hover {
+      transform: translateX(3px);
+      color: #fff;
+    }
+
+    .card-list li::before {
+      content: "•";
+      color: var(--accent-cyan);
+      font-weight: bold;
+    }
+
+    /* Highlight Tag & Badges */
+    .tag {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      transition: transform 0.2s ease;
+    }
+    .tag:hover {
+      transform: scale(1.05);
+    }
+    .tag-green { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+    .tag-amber { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+    .tag-cyan { background: rgba(6, 182, 212, 0.2); color: var(--accent-cyan); }
+
+    /* Title Slide Special Styles */
+    .title-slide-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      max-width: 950px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #ffffff 0%, #6b7280 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-highlight {
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.35rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--bg-card-border);
+    }
+
+    .meta-item label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      margin-bottom: 0.25rem;
+    }
+
+    .meta-item span {
+      font-weight: 600;
+      color: #fff;
+      font-size: 0.95rem;
+    }
+
+    /* Diagram & Flow Visualizers with Floating Arrow Animation */
+    .flow-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--bg-card-border);
+      padding: 1.25rem;
+      border-radius: 14px;
+      margin-bottom: 1.5rem;
+    }
+
+    .flow-step {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .flow-step:hover {
+      border-color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .flow-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.25rem;
+    }
+
+    .flow-step-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    .flow-arrow {
+      color: var(--text-dim);
+      font-size: 1.2rem;
+      animation: floatArrow 2s infinite ease-in-out;
+    }
+
+    @keyframes floatArrow {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); color: var(--accent-cyan); }
+    }
+
+    /* Table Styles */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    .styled-table th {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      border-bottom: 1px solid var(--bg-card-border);
+    }
+
+    .styled-table td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      transition: background 0.2s ease;
+    }
+
+    .styled-table tr:hover td {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    /* Code Block snippet */
+    .code-box {
+      background: #0d1117;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: #e6edf3;
+      overflow-x: auto;
+      line-height: 1.5;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+    .code-key { color: #79c0ff; }
+    .code-val { color: #a5d6ff; }
+    .code-num { color: #d2a8ff; }
+    .code-comment { color: #8b949e; font-style: italic; }
+
+    /* Footer Nav Indicators */
+    footer {
+      padding: 0.75rem 2rem;
+      background: rgba(9, 13, 22, 0.9);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 50;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dot:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .dot.active {
+      background: var(--accent-cyan);
+      width: 24px;
+      border-radius: 9999px;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    .keyboard-hint {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    kbd {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glowing Orbs -->
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+
+  <!-- Top Progress Bar -->
+  <div id="progress-bar"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">F</div>
+      <div class="brand-title">FINCAPES FFEWS</div>
+      <div class="badge-ipb">Fahutan IPB Academic Presentation</div>
+    </div>
+    <div class="controls">
+      <button class="btn" id="prev-btn">← Prev</button>
+      <span class="slide-counter" id="slide-counter">Slide 1 / 10</span>
+      <button class="btn" id="next-btn">Next →</button>
+      <button class="btn" id="fullscreen-btn" title="Toggle Fullscreen">⛶</button>
+    </div>
+  </header>
+
+  <!-- Main Slide Stage -->
+  <main id="slide-stage">
+
+    <!-- SLIDE 1: Cover Title -->
+    <section class="slide active">
+      <div class="title-slide-content">
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+          <span class="tag tag-green">Peatland Hydrology</span>
+          <span class="tag tag-cyan">Karhutla Early Warning</span>
+          <span class="tag tag-amber">IoT Telemetry & GIS</span>
+        </div>
+        <h1 class="hero-title">
+          Flood & Fire Early Warning System <br/>
+          <span class="hero-highlight">FINCAPES FFEWS</span>
+        </h1>
+        <p class="hero-subtitle">
+          A Full-Stack IoT Sensing & Decision-Support Platform for Forestry Conservation and Peatland Hydrology Monitoring in Indonesia.
+        </p>
+        <div class="meta-grid">
+          <div class="meta-item">
+            <label>Key Pilot Regions</label>
+            <span>Pontianak, Samarinda, Jambi, Lampung</span>
+          </div>
+          <div class="meta-item">
+            <label>Core Stack</label>
+            <span>Next.js 14 • FastAPI • PostgreSQL • Leaflet GIS</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 2: Background & Peatland Challenges -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Problem Statement & Research Context</div>
+        <h2 class="slide-title">Peatland Conservation & Karhutla Vulnerabilities</h2>
+        <p class="slide-subtitle">Indonesian tropical peatlands face dual hydrological extremes: intense dry-season fire risks (Karhutla) and wet-season localized flooding.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-icon icon-amber">🔥</div>
+          <h3 class="card-title">Peat Fire (Karhutla) Vulnerability</h3>
+          <p class="card-desc">When Groundwater Level (TMAT) drops and surface/deep peat moisture dries out, smoldering underground peat fires ignite easily and produce toxic haze.</p>
+          <ul class="card-list">
+            <li>Requires dual-depth soil moisture monitoring (Surface vs Deep).</li>
+            <li>Needs real-time smoke & ambient temperature anomaly detection.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="card-icon icon-cyan">🌊</div>
+          <h3 class="card-title">Localized Peatland Flooding</h3>
+          <p class="card-desc">Sudden monsoonal rain events saturate degraded peat catchments, resulting in flash floods and infrastructure damage in low-lying river basins.</p>
+          <ul class="card-list">
+            <li>High-frequency water level & hydrostatic pressure tracking.</li>
+            <li>Threshold exposure calculation to monitor inundation duration.</li>
+          </ul>
+        </div>
+        <div class="card" style="grid-column: span 2;">
+          <div class="card-icon icon-green">🌲</div>
+          <h3 class="card-title">Operational Challenges in Forestry Field Sites</h3>
+          <p class="card-desc">Remote observation stations face frequent power outages, intermittent cellular connectivity, physical sensor installation variations, and multi-agency coordination barriers across central, provincial, and local forest stations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 3: System Architecture -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Technical Infrastructure</div>
+        <h2 class="slide-title">End-to-End System Architecture</h2>
+        <p class="slide-subtitle">Decoupled, high-concurrency microservices combining Python FastAPI for telemetry ingestion and Next.js 14 for GIS situational awareness.</p>
+      </div>
+
+      <div class="flow-container">
+        <div class="flow-step">
+          <div class="flow-step-num">LAYER 1</div>
+          <div class="flow-step-title">IoT Edge Sensors</div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Raspberry Pi / Gateways (Soil, Water, Weather, Power)</p>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-step">
+          <div class="flow-step-num">LAYER 2</div>
+          <div class="flow-step-title">FastAPI Backend</div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Port 8000 (Telemetry Ingest, Shadow Sync, ACK)</p>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-step">
+          <div class="flow-step-num">LAYER 3</div>
+          <div class="flow-step-title">PostgreSQL Storage</div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Port 5432 (TimeSeries Data & Device Metadata)</p>
+        </div>
+        <div class="flow-arrow">➔</div>
+        <div class="flow-step">
+          <div class="flow-step-num">LAYER 4</div>
+          <div class="flow-step-title">Next.js Web Dashboard</div>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Port 3000 (Leaflet GIS, RBAC, i18n, Analytics)</p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h4 class="card-title" style="color: var(--accent-cyan);">FastAPI Ingestion</h4>
+          <p class="card-desc">Handles batch telemetry JSON payloads with client timestamps, supporting offline data buffering & battery health metrics.</p>
+        </div>
+        <div class="card">
+          <h4 class="card-title" style="color: var(--accent-green);">Prisma & PostgreSQL</h4>
+          <p class="card-desc">Optimized relational schemas segregating high-frequency time-series telemetry from static device installation metadata.</p>
+        </div>
+        <div class="card">
+          <h4 class="card-title" style="color: var(--accent-amber);">Next.js Dashboard</h4>
+          <p class="card-desc">React 18 + Tailwind CSS + Leaflet map. Interactive GIS color coding, real-time alert triggers, and CSV report export.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 4: Scientific Variables & Sensor Depths -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Forestry Hydrology & Scientific Rigor</div>
+        <h2 class="slide-title">Monitored Telemetry & Physical Depth Metadata</h2>
+        <p class="slide-subtitle">Differentiating transient environmental readings from permanent sensor physical installation depths for accurate volumetric calibration.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title" style="color: var(--accent-green);">1. Dynamic Telemetry Metrics (Payload)</h3>
+          <table class="styled-table" style="margin-top: 0.5rem;">
+            <thead>
+              <tr>
+                <th>Parameter</th>
+                <th>Unit</th>
+                <th>Scientific Relevance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>Surface Moisture</b></td>
+                <td>%</td>
+                <td>Topsoil desiccation & surface ignition risk</td>
+              </tr>
+              <tr>
+                <td><b>Deep Moisture</b></td>
+                <td>%</td>
+                <td>Deep peat water reserve retention</td>
+              </tr>
+              <tr>
+                <td><b>Water Level / Pressure</b></td>
+                <td>m / bar</td>
+                <td>Groundwater table (TMAT) & flood head</td>
+              </tr>
+              <tr>
+                <td><b>Smoke / Temp / Flame</b></td>
+                <td>% / °C / bool</td>
+                <td>Direct fire & smoldering detection</td>
+              </tr>
+              <tr>
+                <td><b>Wind Speed / Direction</b></td>
+                <td>m/s / Deg</td>
+                <td>Fire spread direction situational awareness</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="color: var(--accent-amber);">2. Static Sensor Installation Depths</h3>
+          <p class="card-desc" style="margin-bottom: 0.75rem;">
+            Each physical device maintains 3 static installation depth metadata records (in cm). Maintained exclusively by assigned Station Operators:
+          </p>
+          <div class="code-box">
+<span class="code-comment">// Device Model (Static Installation Metadata in Prisma Schema)</span>
+{
+  <span class="code-key">"surfaceSoilMoistureSensorDepth"</span>: <span class="code-num">10.0</span>, <span class="code-comment">// e.g., 10 cm depth</span>
+  <span class="code-key">"deepSoilMoistureSensorDepth"</span>: <span class="code-num">50.0</span>,    <span class="code-comment">// e.g., 50 cm depth</span>
+  <span class="code-key">"pressureSensorDepth"</span>: <span class="code-num">120.0</span>            <span class="code-comment">// e.g., 120 cm depth</span>
+}
+          </div>
+          <p class="card-desc" style="margin-top: 0.75rem; font-size: 0.8rem; color: var(--text-muted);">
+            <b>Scientific Value:</b> Prevents duplicating depth data in every telemetry row while providing IPB researchers exact depth baselines for volumetric water content (VWC) calibration.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 5: Dual Warning Logic -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Decision Support Engine</div>
+        <h2 class="slide-title">Peatland Dual Early Warning Logic</h2>
+        <p class="slide-subtitle">Automated multi-factor threshold evaluations for simultaneous fire (Karhutla) and flood risk flagging.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card" style="border-left: 4px solid var(--accent-red);">
+          <div class="card-icon icon-red">🔥</div>
+          <h3 class="card-title">Fire Warning Criteria (Karhutla)</h3>
+          <p class="card-desc">Triggered automatically when any of the following compound environmental conditions are met:</p>
+          <ul class="card-list" style="margin-top: 0.5rem;">
+            <li>High Smoke Level (exceeding custom station threshold)</li>
+            <li>High Ambient Temperature or Detected Flame</li>
+            <li>Humidity dropped below safety threshold (%)</li>
+            <li><b>Surface or Deep Peat Moisture</b> dropped below dryness threshold (%)</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-left: 4px solid var(--accent-cyan);">
+          <div class="card-icon icon-cyan">🌊</div>
+          <h3 class="card-title">Flood Warning Criteria</h3>
+          <p class="card-desc">Triggered automatically when hydrological indicators breach safety limits:</p>
+          <ul class="card-list" style="margin-top: 0.5rem;">
+            <li>High River / Water Table Level (metres)</li>
+            <li>High Cumulative Rainfall (mm)</li>
+            <li>High Surface or Deep Peat Saturation</li>
+            <li>Hydrostatic Pressure breaching configured lower limit</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1.25rem; background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.2);">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <h4 style="color: var(--accent-amber); font-weight: 700;">Dynamic GIS Map Color Coding</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Markers dynamically recolor on Leaflet Map: <span style="color: var(--accent-green); font-weight: 600;">Normal (Green)</span> ➔ <span style="color: var(--accent-amber); font-weight: 600;">Warning (Amber)</span> ➔ <span style="color: var(--accent-red); font-weight: 600;">Danger (Red)</span>.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <span class="tag tag-green">NORMAL</span>
+            <span class="tag tag-amber">WARNING</span>
+            <span class="tag tag-cyan" style="background: rgba(239, 68, 68, 0.2); color: var(--accent-red);">DANGER</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 6: Field Operations & IoT Resilience -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Hardware & Field Logistics</div>
+        <h2 class="slide-title">Field Reliability & Device Control Features</h2>
+        <p class="slide-subtitle">Designed specifically for remote, harsh forest environments with intermittent power and connectivity.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon icon-amber">🔋</div>
+          <h3 class="card-title">Battery Level Monitoring</h3>
+          <p class="card-desc">Real-time reporting of telemetry battery percentage (`batteryLevel`) in both batch uploads and lightweight heartbeats (`/sensors/heartbeat`) to prevent sudden field outages.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon icon-cyan">📶</div>
+          <h3 class="card-title">Offline Buffer & Batch Ingest</h3>
+          <p class="card-desc">Edge nodes buffer telemetry locally during cell towers dropouts. Uploads contain client-side timestamps, allowing FastAPI to archive continuous historical trends seamlessly.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon icon-red">🔒</div>
+          <h3 class="card-title">Active Alert Status Lock</h3>
+          <p class="card-desc">Prevents operators from changing a device's operational status (e.g. to Maintenance/Offline) while it has an unresolved active alert—enforced by frontend validation and backend API PATCH rules.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1.25rem;">
+        <h4 class="card-title" style="font-size: 1rem; color: var(--accent-green);">Device Shadow & Remote Command Dispatch</h4>
+        <p class="card-desc">Operators can dispatch remote actions (such as <code style="color: var(--accent-cyan);">reboot</code>) directly from the Web Dashboard. Edge devices poll commands via heartbeats and acknowledge execution via the Command ACK endpoint (<code style="color: var(--accent-cyan);">/sensors/commands/ack</code>).</p>
+      </div>
+    </section>
+
+    <!-- SLIDE 7: RBAC & Internationalization -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Governance & Multilingual Collaboration</div>
+        <h2 class="slide-title">Multi-Tier RBAC & Bilingual i18n Support</h2>
+        <p class="slide-subtitle">Supporting multi-agency collaboration between central administrators, regional forest authorities, and local station officers.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title" style="color: var(--accent-green);">1. Role-Based Access Control (RBAC)</h3>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 0.75rem;">
+            <div style="padding: 0.75rem; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 3px solid var(--accent-cyan);">
+              <strong style="color: #fff;">Admin</strong>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Global system access, user management, and system-wide threshold configurations.</p>
+            </div>
+            <div style="padding: 0.75rem; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 3px solid var(--accent-amber);">
+              <strong style="color: #fff;">City / Regional Operator</strong>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Regional coordination scoped strictly to assigned cities and stations (e.g. Pontianak office).</p>
+            </div>
+            <div style="padding: 0.75rem; background: rgba(255,255,255,0.03); border-radius: 8px; border-left: 3px solid var(--accent-green);">
+              <strong style="color: #fff;">Station Operator</strong>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">Station-level monitoring and exclusive management of static sensor installation depth records.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="color: var(--accent-cyan);">2. Bilingual Support (i18n)</h3>
+          <p class="card-desc">Powered by <code style="color: var(--accent-cyan);">next-intl</code> for seamless real-time language switching without page reloads:</p>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border-radius: 8px;">
+              <span>🇮🇩 <b>Bahasa Indonesia</b></span>
+              <span class="tag tag-green">Local Field Staff & IPB Researchers</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border-radius: 8px;">
+              <span>🇬🇧 <b>English</b></span>
+              <span class="tag tag-cyan">International Collaboration & Reports</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 8: Research Analytics & Data Export -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Research Value & Analytics</div>
+        <h2 class="slide-title">Analytics & Scientific CSV Data Export</h2>
+        <p class="slide-subtitle">Empowering IPB faculty and graduate students with structured hydrological and meteorological datasets for secondary modeling.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon icon-cyan">📈</div>
+          <h3 class="card-title">TimeSeries Trends</h3>
+          <p class="card-desc">Interactive multi-parameter trend charting across selectable date ranges, highlighting threshold-crossing events visually.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon icon-amber">⏱️</div>
+          <h3 class="card-title">Daily Threshold Exposure</h3>
+          <p class="card-desc">Calculates cumulative days of low peat moisture or high water table head to assess ecosystem vulnerability duration.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon icon-green">📊</div>
+          <h3 class="card-title">Scientific CSV Export</h3>
+          <p class="card-desc">Exports clean telemetry logs bundled with the current station installation depth metadata for instant import into R, Python, or ArcGIS.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 1.25rem;">
+        <h4 class="card-title" style="font-size: 0.95rem; color: var(--accent-cyan);">Sample Export Data Schema</h4>
+        <div class="code-box" style="font-size: 0.75rem; margin-top: 0.5rem;">
+timestamp_utc, device_id, water_level_m, soil_moisture_surface_pct, soil_moisture_deep_pct, current_surface_soil_moisture_sensor_depth_cm, current_deep_soil_moisture_sensor_depth_cm, battery_level_pct
+2026-06-24T06:00:00Z, DEV-PON-01, 1.25, 70.0, 62.0, 10.0, 50.0, 95.0
+2026-06-24T07:00:00Z, DEV-PON-01, 1.28, 68.5, 61.2, 10.0, 50.0, 94.5
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 9: Recommended Live Demo Flow -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Live Demo Script</div>
+        <h2 class="slide-title">5-Minute Live Demo Walkthrough for IPB</h2>
+        <p class="slide-subtitle">Step-by-step presentation script designed to showcase user experience and scientific relevance smoothly.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="card" style="flex-direction: row; align-items: center; gap: 1.5rem; padding: 1rem 1.5rem;">
+          <div style="font-family: var(--font-mono); font-weight: 800; font-size: 1.2rem; color: var(--accent-green); min-width: 70px;">STEP 1</div>
+          <div>
+            <h4 style="color: #fff; font-size: 1rem;">GIS Situation Map & Bahasa Indonesia Toggle</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Switch language to Bahasa Indonesia, select Pontianak city, and inspect station risk markers.</p>
+          </div>
+        </div>
+
+        <div class="card" style="flex-direction: row; align-items: center; gap: 1.5rem; padding: 1rem 1.5rem;">
+          <div style="font-family: var(--font-mono); font-weight: 800; font-size: 1.2rem; color: var(--accent-cyan); min-width: 70px;">STEP 2</div>
+          <div>
+            <h4 style="color: #fff; font-size: 1rem;">Peatland Telemetry & Dual Fire/Flood Alert Flagging</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Open station readings, highlight surface vs deep peat moisture, and show active fire alert triggers in FlaggedAlerts Page.</p>
+          </div>
+        </div>
+
+        <div class="card" style="flex-direction: row; align-items: center; gap: 1.5rem; padding: 1rem 1.5rem;">
+          <div style="font-family: var(--font-mono); font-weight: 800; font-size: 1.2rem; color: var(--accent-amber); min-width: 70px;">STEP 3</div>
+          <div>
+            <h4 style="color: #fff; font-size: 1rem;">Device Status Lock & Remote Reboot Command</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Demonstrate status lock blocking accidental device disablement during active alerts, then dispatch a reboot command.</p>
+          </div>
+        </div>
+
+        <div class="card" style="flex-direction: row; align-items: center; gap: 1.5rem; padding: 1rem 1.5rem;">
+          <div style="font-family: var(--font-mono); font-weight: 800; font-size: 1.2rem; color: var(--accent-blue); min-width: 70px;">STEP 4</div>
+          <div>
+            <h4 style="color: #fff; font-size: 1rem;">Station Operator Depth Metadata Maintenance & CSV Export</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Show sensor installation depth editing under Station Details, followed by one-click CSV research report export.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIDE 10: Conclusion & Future Research -->
+    <section class="slide">
+      <div class="slide-header">
+        <div class="slide-category">Summary & Future Research</div>
+        <h2 class="slide-title">Conclusion & Future Academic Collaboration</h2>
+        <p class="slide-subtitle">Building an integrated, science-backed digital twin for Indonesian peatland and forest risk management.</p>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="card-title" style="color: var(--accent-green);">Summary of System Impact</h3>
+          <ul class="card-list">
+            <li><b>Rapid Response:</b> Reduces disaster warning response times across pilot regions.</li>
+            <li><b>Scientific Integrity:</b> Integrates physical depth metadata with real-time moisture & groundwater readings.</li>
+            <li><b>Field Resilience:</b> Battery monitoring, offline buffering, and safety status lock for rugged field deployment.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3 class="card-title" style="color: var(--accent-cyan);">Future Research Collaboration with IPB</h3>
+          <ul class="card-list">
+            <li><b>FDRS / FWI Integration:</b> Embedding Indonesian Fire Danger Rating System algorithms into the backend.</li>
+            <li><b>Peat Carbon Emissions:</b> Correlating TMAT drawdown rates with peat oxidation and carbon loss models.</li>
+            <li><b>Multi-Source Fusion:</b> Cross-validating ground IoT telemetry with satellite hotspot data (Sentinel/MODIS).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top: 2rem; text-align: center;">
+        <h3 style="font-size: 1.75rem; font-weight: 800; color: #fff;">Terima Kasih! • Thank You!</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem;">Questions & Academic Discussion • Faculty of Forestry & Environment (IPB)</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="nav-dots" id="dots-container"></div>
+    <div class="keyboard-hint">
+      Navigate with <kbd>←</kbd> <kbd>→</kbd> or <kbd>Space</kbd> • Press <kbd>F</kbd> for Fullscreen
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const prevBtn = document.getElementById('prev-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const counter = document.getElementById('slide-counter');
+      const progressBar = document.getElementById('progress-bar');
+      const dotsContainer = document.getElementById('dots-container');
+      const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      // Create dots
+      slides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (idx === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(idx));
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = document.querySelectorAll('.dot');
+
+      function updateSlide() {
+        slides.forEach((slide, idx) => {
+          if (idx === currentSlide) {
+            slide.classList.add('active');
+          } else {
+            slide.classList.remove('active');
+          }
+        });
+
+        dots.forEach((dot, idx) => {
+          if (idx === currentSlide) {
+            dot.classList.add('active');
+          } else {
+            dot.classList.remove('active');
+          }
+        });
+
+        counter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+        const progress = ((currentSlide + 1) / totalSlides) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+
+      function goToSlide(index) {
+        if (index >= 0 && index < totalSlides) {
+          currentSlide = index;
+          updateSlide();
+        }
+      }
+
+      function nextSlide() {
+        if (currentSlide < totalSlides - 1) {
+          currentSlide++;
+          updateSlide();
+        }
+      }
+
+      function prevSlide() {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlide();
+        }
+      }
+
+      prevBtn.addEventListener('click', prevSlide);
+      nextBtn.addEventListener('click', nextSlide);
+
+      // Keyboard Controls
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(0);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(totalSlides - 1);
+        } else if (e.key === 'f' || e.key === 'F') {
+          toggleFullscreen();
+        }
+      });
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(err => {
+            console.error(`Error attempting to enable fullscreen: ${err.message}`);
+          });
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      }
+
+      fullscreenBtn.addEventListener('click', toggleFullscreen);
+
+      updateSlide();
+    });
+  </script>
+</body>
+</html>
