@@ -894,17 +894,14 @@
         </div>
       </div>
 
-      <div class="card" style="margin-top: 1.25rem; background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.2);">
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <div>
-            <h4 style="color: var(--accent-amber); font-weight: 700;">Dynamic GIS Map Color Coding</h4>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Markers dynamically recolor on Leaflet Map: <span style="color: var(--accent-green); font-weight: 600;">Normal (Green)</span> ➔ <span style="color: var(--accent-amber); font-weight: 600;">Warning (Amber)</span> ➔ <span style="color: var(--accent-red); font-weight: 600;">Danger (Red)</span>.</p>
-          </div>
-          <div style="display: flex; gap: 0.5rem;">
-            <span class="tag tag-green">NORMAL</span>
-            <span class="tag tag-amber">WARNING</span>
-            <span class="tag tag-cyan" style="background: rgba(239, 68, 68, 0.2); color: var(--accent-red);">DANGER</span>
-          </div>
+      <div class="grid-2" style="margin-top: 1.25rem;">
+        <div class="card" style="background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.2);">
+          <h4 style="color: var(--accent-amber); font-weight: 700; margin-bottom: 0.25rem;">City-Wide Default Threshold Templates</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Admins set regional baseline thresholds (<code style="color: var(--accent-cyan);">DeviceDefaultSetting</code>), broadcasting rules across all city stations automatically via Device Shadow.</p>
+        </div>
+        <div class="card" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2);">
+          <h4 style="color: var(--accent-green); font-weight: 700; margin-bottom: 0.25rem;">Closed-Loop Incident Resolution Workflow</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">Operators inspect, acknowledge, and mark alerts as <code style="color: var(--accent-green);">Resolved</code> in <code style="color: var(--accent-cyan);">FlaggedAlerts</code>, maintaining audit logs of responder actions.</p>
         </div>
       </div>
     </section>
@@ -995,7 +992,7 @@
         <p class="slide-subtitle">Empowering IPB faculty and graduate students with structured hydrological and meteorological datasets for secondary modeling.</p>
       </div>
 
-      <div class="grid-3">
+      <div class="grid-4">
         <div class="card">
           <div class="card-icon icon-cyan">📈</div>
           <h3 class="card-title">TimeSeries Trends</h3>
@@ -1004,8 +1001,14 @@
 
         <div class="card">
           <div class="card-icon icon-amber">⏱️</div>
-          <h3 class="card-title">Daily Threshold Exposure</h3>
+          <h3 class="card-title">Threshold Exposure</h3>
           <p class="card-desc">Calculates cumulative days of low peat moisture or high water table head to assess ecosystem vulnerability duration.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon icon-blue">🔮</div>
+          <h3 class="card-title">Trend Prediction</h3>
+          <p class="card-desc">Calculates rate-of-change projections to forecast imminent water level rises or peat desiccation before thresholds breach.</p>
         </div>
 
         <div class="card">
